@@ -10,6 +10,7 @@ class Die:
     May be rolled to select a face.
     Has N sides.
     Each side is associated with a face and a weight.
+    Weights default to 1.0 and can be changed.
 
     Instance variables:
         __data_frame_of_faces_and_weights
