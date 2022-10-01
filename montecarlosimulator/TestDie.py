@@ -1,17 +1,44 @@
-from Die import Die
+'''
+Module for class TestDie, which tests the methods of a Die object
+'''
+
+from Die import *
 import numpy as np
 import pandas as pd
 import unittest
 
 class TestDie(unittest.TestCase):
     '''
-    Tests the methods of a Die object.
+    Tests the methods of a Die object
+
+    Instance variableS:
+        none
+
+    Public methods:
+        test_init
+        test_change_weight
+        test_roll
+        test_show
     '''
 
-    def compare_data_frames_of_faces_and_weights(self, array_of_faces):
+    def __compare_data_frames_of_faces_and_weights(self, array_of_faces):
         '''
-        Compares data frames of faces and weights.
-        Takes an array of faces.
+        Compares data frames of faces and weights
+
+        Keyword arguments:
+            array of faces -- a numpy array of faces. A face must have a data type of string, int, or float. All faces in the numpy array must have the same data type. The faces in the numpy array must be unique.
+
+        Return values:
+            none
+
+        Side effects:
+            Compares data frames of faces and weights for an numpy arrays of faces
+
+        Exceptions raised:
+            none
+
+        Restrictions on when this method can be called:
+            none
         '''
 
         array_of_weights = np.ones(len(array_of_faces))
@@ -22,11 +49,26 @@ class TestDie(unittest.TestCase):
 
     def test_init(self):
         '''
-        Tests Die.__init__.
+        Tests Die.__init__
+
+        Keyword arguments:
+            none
+
+        Return values:
+            none
+
+        Side effects:
+            Compares data frames of faces and weights for two numpy arrays of faces
+
+        Exceptions raised:
+            none
+
+        Restrictions on when this method can be called:
+            none
         '''
 
-        self.compare_data_frames_of_faces_and_weights(np.array([1, 2, 3, 4]))
-        self.compare_data_frames_of_faces_and_weights(np.array(['1', '2', '3', '4']))
+        self.__compare_data_frames_of_faces_and_weights(np.array([1, 2, 3, 4]))
+        self.__compare_data_frames_of_faces_and_weights(np.array(['1', '2', '3', '4']))
 
     def test_change_weight(self):
         pass

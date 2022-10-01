@@ -8,6 +8,7 @@ To install from GitHub: pip install git+ssh://git@github.com/tslever/montecarlos
 
 Regarding creating this package: https://betterscientificsoftware.github.io/python-for-hpc/tutorials/python-pypi-packaging/
 PEP 8 - Style Guide for Python Code:  https://peps.python.org/pep-0008/#package-and-module-names
+PEP 257 - Docstring Conventions: https://peps.python.org/pep-0257/
 
 
 Usage Examples
