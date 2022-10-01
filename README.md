@@ -3,7 +3,7 @@ A Python package offering a Monte-Carlo simulator
 
 
 To install from root of montecarlosimulator: pip install .
-To install from GitHub: pip install git+ssh://git@github.com/tslever/montecarlosimulator.git@main#subdirectory=montecarlosimulator
+To install from GitHub: pip install git+ssh://git@github.com/tslever/montecarlosimulator.git@main
 
 
 Regarding creating this package: https://betterscientificsoftware.github.io/python-for-hpc/tutorials/python-pypi-packaging/
