@@ -11,7 +11,7 @@ class TestDie(unittest.TestCase):
     '''
     Tests the methods of a Die object
 
-    Instance variableS:
+    Instance variables:
         none
 
     Public methods:
@@ -21,7 +21,7 @@ class TestDie(unittest.TestCase):
         test_show
     '''
 
-    def __compare_data_frames_of_faces_and_weights(self, array_of_faces):
+    def _compare_data_frames_of_faces_and_weights(self, array_of_faces):
         '''
         Compares data frames of faces and weights
 
@@ -35,7 +35,7 @@ class TestDie(unittest.TestCase):
             Compares data frames of faces and weights for an numpy arrays of faces
 
         Exceptions raised:
-            none
+            AssertionError if a shown data frame of faces and weights does not equal an expected data frame of faces and weights
 
         Restrictions on when this method can be called:
             none
@@ -61,14 +61,14 @@ class TestDie(unittest.TestCase):
             Compares data frames of faces and weights for two numpy arrays of faces
 
         Exceptions raised:
-            none
+            AssertionError if a shown data frame of faces and weights does not equal an expected data frame of faces and weights
 
         Restrictions on when this method can be called:
             none
         '''
 
-        self.__compare_data_frames_of_faces_and_weights(np.array([1, 2, 3, 4]))
-        self.__compare_data_frames_of_faces_and_weights(np.array(['1', '2', '3', '4']))
+        self._compare_data_frames_of_faces_and_weights(np.array([1, 2, 3, 4]))
+        self._compare_data_frames_of_faces_and_weights(np.array(['1', '2', '3', '4']))
 
     def test_change_weight(self):
         pass
