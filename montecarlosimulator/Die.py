@@ -44,6 +44,7 @@ class Die:
 
         array_of_weights = np.ones(len(array_of_faces))
         self._data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
+        self._roll_is_being_tested = False
 
     def change_weight(self, face, weight):
         '''
@@ -93,10 +94,14 @@ class Die:
         Restrictions on when this method can be called:
             none
         '''
-
-        data_frame_of_rolled_faces_and_weights = self._data_frame_of_faces_and_weights.sample(n = number_of_rolls, replace = True, weights = 'weight', random_state = None, axis = None, ignore_index = False)
+        
+        the_random_state = 0 if self._roll_is_being_tested else None
+        data_frame_of_rolled_faces_and_weights = self._data_frame_of_faces_and_weights.sample(n = number_of_rolls, replace = True, weights = 'weight', random_state = the_random_state, axis = None, ignore_index = False)
         list_of_rolled_faces = data_frame_of_rolled_faces_and_weights.index.to_list()
         return list_of_rolled_faces
+
+    def set_indicator_that_roll_is_being_tested(self, indicator_that_roll_is_being_tested):
+        self._roll_is_being_tested = indicator_that_roll_is_being_tested
 
     def show(self):
         '''

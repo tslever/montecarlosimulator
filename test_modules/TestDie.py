@@ -5,12 +5,6 @@ Module for class TestDie, which tests the methods of a Die object
 from montecarlosimulator.Die import *
 import unittest
 
-class DieForTestingRoll(Die):
-    def roll(self, number_of_rolls = 1):
-        data_frame_of_rolled_faces_and_weights = self._data_frame_of_faces_and_weights.sample(n = number_of_rolls, replace = True, weights = 'weight', random_state = 0, axis = None, ignore_index = False)
-        list_of_rolled_faces = data_frame_of_rolled_faces_and_weights.index.to_list()
-        return list_of_rolled_faces
-
 class TestDie(unittest.TestCase):
     '''
     Tests the methods of a Die object
@@ -120,8 +114,28 @@ class TestDie(unittest.TestCase):
             pass
 
     def test_roll(self):
+        '''
+        Tests Die.roll
+
+        Keyword arguments:
+            none
+
+        Return values:
+            none
+
+        Side effects:
+            Ensures a list of rolled faces for a die is equal to an expected list of rolled faces when roll is being tested
+
+        Exceptions raised:
+            AssertionError if a list of rolled faces for a die is not equal to an expected list of rolled faces when roll is being tested
+
+        Restrictions on when this method can be called:
+            none
+        '''
+        
         array_of_faces = [1, 2, 3, 4]
-        die = DieForTestingRoll(array_of_faces)
+        die = Die(array_of_faces)
+        die.set_indicator_that_roll_is_being_tested(True)
         list_of_rolled_faces = data_frame_of_rolled_faces_and_weights = die.roll(20)
         expected_list_of_rolled_faces = [3, 3, 3, 3, 2, 3, 2, 4, 4, 2, 4, 3, 3, 4, 1, 1, 1, 4, 4, 4]
         self.assertEqual(list_of_rolled_faces, expected_list_of_rolled_faces)
