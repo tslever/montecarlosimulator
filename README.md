@@ -1,6 +1,7 @@
 # montecarlosimulator
 A Python package offering a Monte-Carlo simulator
 
+## Installation
 
 To install from root of montecarlosimulator: pip install .
 To install from GitHub: pip install git+ssh://git@github.com/tslever/montecarlosimulator.git@main
@@ -11,7 +12,7 @@ PEP 8 - Style Guide for Python Code:  https://peps.python.org/pep-0008/#package-
 PEP 257 - Docstring Conventions: https://peps.python.org/pep-0257/
 
 
-Usage Examples
+## Usage Examples
 
 import montecarlosimulator.run_print_hello_world
 Hello,World!

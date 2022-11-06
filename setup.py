@@ -3,12 +3,13 @@ from setuptools import setup
 setup(
     name='montecarlosimulator',
     version='0.1.0',
-    description='A Python package offering a Monte-Carlo Simulator',
-    url='https://github.com/tslever/montecarlosimulator',
     author='Tom Lever',
     author_email='tsl2b@virginia.edu',
-    license='MIT License',
     packages=['montecarlosimulator'],
+    url='https://github.com/tslever/montecarlosimulator',
+    license='MIT License',
+    description='A Python package offering a Monte-Carlo Simulator',
+    long_description=open('README.md').read(),
     install_requires=[],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',

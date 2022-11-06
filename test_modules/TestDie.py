@@ -2,9 +2,7 @@
 Module for class TestDie, which tests the methods of a Die object
 '''
 
-from Die import *
-import numpy as np
-import pandas as pd
+from montecarlosimulator.Die import *
 import unittest
 
 class TestDie(unittest.TestCase):
