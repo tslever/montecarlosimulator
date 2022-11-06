@@ -76,15 +76,16 @@ class Die:
     def roll(self, number_of_rolls = 1):
         '''
         Rolls this Die object one or more times
+        Whenever changes are made to roll, update DieForTestingRoll.roll.
 
         Keyword arguments:
             number_of_rolls: int -- An integer
 
         Return values:
-            data_frame_of_rolled_faces_and_weights: pd.DataFrame -- A data frame of rolled faces and weights
+            list_of_rolled_faces: list -- A list of rolled faces
 
         Side effects:
-            Samples rows from the data frame of faces and weights of this Die object according to the weights.
+            Samples rows from the data frame of faces and weights of this Die object according to the weights
         
         Exceptions raised:
             none
@@ -94,7 +95,8 @@ class Die:
         '''
 
         data_frame_of_rolled_faces_and_weights = self._data_frame_of_faces_and_weights.sample(n = number_of_rolls, replace = True, weights = 'weight', random_state = None, axis = None, ignore_index = False)
-        return data_frame_of_rolled_faces_and_weights.index.to_list()
+        list_of_rolled_faces = data_frame_of_rolled_faces_and_weights.index.to_list()
+        return list_of_rolled_faces
 
     def show(self):
         '''

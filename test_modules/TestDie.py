@@ -5,6 +5,12 @@ Module for class TestDie, which tests the methods of a Die object
 from montecarlosimulator.Die import *
 import unittest
 
+class DieForTestingRoll(Die):
+    def roll(self, number_of_rolls = 1):
+        data_frame_of_rolled_faces_and_weights = self._data_frame_of_faces_and_weights.sample(n = number_of_rolls, replace = True, weights = 'weight', random_state = 0, axis = None, ignore_index = False)
+        list_of_rolled_faces = data_frame_of_rolled_faces_and_weights.index.to_list()
+        return list_of_rolled_faces
+
 class TestDie(unittest.TestCase):
     '''
     Tests the methods of a Die object
@@ -114,7 +120,11 @@ class TestDie(unittest.TestCase):
             pass
 
     def test_roll(self):
-        pass
+        array_of_faces = [1, 2, 3, 4]
+        die = DieForTestingRoll(array_of_faces)
+        list_of_rolled_faces = data_frame_of_rolled_faces_and_weights = die.roll(20)
+        expected_list_of_rolled_faces = [3, 3, 3, 3, 2, 3, 2, 4, 4, 2, 4, 3, 3, 4, 1, 1, 1, 4, 4, 4]
+        self.assertEqual(list_of_rolled_faces, expected_list_of_rolled_faces)
 
     def test_show(self):
         pass
