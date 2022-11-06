@@ -69,7 +69,49 @@ class TestDie(unittest.TestCase):
         self._compare_data_frames_of_faces_and_weights(np.array(['1', '2', '3', '4']))
 
     def test_change_weight(self):
-        pass
+        '''
+        Tests Die.change_weight
+
+        Keyword arguments:
+            none
+
+        Return values:
+            none
+
+        Side effects:
+            Ensures a weight in the data frame of faces and weights of a die is changed,
+                    attempting to change the weight corresponding to a face that does not exist in the data frame of faces and weights of a die raises a value error, and
+                    attempting to change a weight to a value that cannot be converted to np.float64 raises a value error
+
+        Exceptions raised:
+            AssertionError if a weight in the data frame of faces and weights of a die is not changed,
+                              attempting to change the weight corresponding to a face that does not exist in the data frame of faces and weights of a die succeeds, or
+                              attempting to change a weight to a value that cannot be converted to np.float64 succeeds
+
+        Restrictions on when this method can be called:
+            none
+        '''
+
+        array_of_faces = [1, 2, 3, 4]
+        array_of_weights = np.ones(len(array_of_faces))
+        array_of_weights[0] = 2.0
+        expected_data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
+        die = Die(array_of_faces)
+        die.change_weight(1, 2.0)
+        shown_data_frame_of_faces_and_weights = die.show()
+        self.assertTrue(shown_data_frame_of_faces_and_weights.equals(expected_data_frame_of_faces_and_weights))
+
+        try:
+            die.change_weight('face_that_does_not_exist_in_data_frame_of_faces_and_weights_of_die', 2.0)
+            self.fail()
+        except ValueError as e:
+            pass
+
+        try:
+            die.change_weight(1, 'weight_that_cannot_be_converted_to_np.float64')
+            self.fail()
+        except ValueError as e:
+            pass
 
     def test_roll(self):
         pass

@@ -71,7 +71,7 @@ class Die:
         # Checks to see if weight can be converted to np.float64.
         # If not, raises ValueError: could not convert <weight type> to float: <weight value>
         weight = np.float64(weight)
-        self._data_frame_of_faces_and_weights.set_value(face, 'weight', weight)
+        self._data_frame_of_faces_and_weights.at[face, 'weight'] = weight
 
     def roll(self, number_of_rolls = 1):
         '''
