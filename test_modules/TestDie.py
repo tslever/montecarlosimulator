@@ -126,7 +126,31 @@ class TestDie(unittest.TestCase):
         self.assertEqual(list_of_rolled_faces, expected_list_of_rolled_faces)
 
     def test_show(self):
-        pass
+        '''
+        Tests Die.show
+
+        Keyword arguments:
+            none
+
+        Return values:
+            none
+
+        Side effects:
+            Compares data frames of faces and weights for a numpy arrays of faces
+
+        Exceptions raised:
+            AssertionError if a shown data frame of faces and weights does not equal an expected data frame of faces and weights
+
+        Restrictions on when this method can be called:
+            none
+        '''
+
+        array_of_faces = [1, 2, 3, 4]
+        array_of_weights = np.ones(len(array_of_faces))
+        expected_data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
+        die = Die(array_of_faces)
+        shown_data_frame_of_faces_and_weights = die.show()
+        self.assertTrue(shown_data_frame_of_faces_and_weights.equals(expected_data_frame_of_faces_and_weights))
 
 if __name__ == "__main__":
     verbose = 2
