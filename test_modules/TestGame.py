@@ -103,11 +103,11 @@ class TestDie(unittest.TestCase):
 
         Side effects:
             Compares data frames of rolls and dice, where each number of rows and observations is the number of rolls, each number of columns and features is the number of dice, and each cell value is a face rolled.
-            Compares series of rolls, dice, and faces, where each row consists of a roll index, a die index, and a face.
+            Compares data frames of rolls and dice and faces, where each row corresponds to a roll, each data frame has a face column, and each cell value is a face rolled.
 
         Exceptions raised:
-            AssertionError if a shown data frame of rolls and dice does not equal an expected data frame of rolls and dice
-                              a shown series of rolls, dice, and faces does not equal an expected series of rolls, dice, and faces
+            AssertionError if a shown data frame of rolls and dice does not equal an expected data frame of rolls and dice, or
+                              a shown data frame of rolls and dice and faces does not equal an expected data frame of rolls and dice and faces
 
         Restrictions on when this method can be called:
             none
@@ -128,10 +128,10 @@ class TestDie(unittest.TestCase):
             expected_data_frame_of_rolls_and_dice[i] = expected_list_of_rolled_faces
         self.assertTrue(shown_data_frame_of_rolls_and_dice.equals(shown_data_frame_of_rolls_and_dice))
         shown_data_frame_of_rolls_and_dice = game.show('narrow')
-        expected_data_frame_of_rolls_and_dice = expected_data_frame_of_rolls_and_dice.stack()
-        expected_data_frame_of_rolls_and_dice.rename('face', inplace = True)
+        expected_data_frame_of_rolls_and_dice = expected_data_frame_of_rolls_and_dice.stack().to_frame('face')
         expected_data_frame_of_rolls_and_dice.index.rename(['roll_index', 'die_index'], inplace = True)
         self.assertTrue(shown_data_frame_of_rolls_and_dice.equals(shown_data_frame_of_rolls_and_dice))
+        print(expected_data_frame_of_rolls_and_dice)
         Die._roll_is_being_tested = False
 
 if __name__ == "__main__":

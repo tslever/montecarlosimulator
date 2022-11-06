@@ -67,8 +67,7 @@ class Game:
 
     def show(self, form):
         if form == 'narrow':
-            narrow_data_frame_of_rolls_and_dice = self._data_frame_of_rolls_and_dice.stack()
-            narrow_data_frame_of_rolls_and_dice.rename('face', inplace = True)
+            narrow_data_frame_of_rolls_and_dice = self._data_frame_of_rolls_and_dice.stack().to_frame('face')
             narrow_data_frame_of_rolls_and_dice.index.rename(['roll_index', 'die_index'], inplace = True)
             return narrow_data_frame_of_rolls_and_dice
         elif form == 'wide':
