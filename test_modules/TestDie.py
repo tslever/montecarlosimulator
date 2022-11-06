@@ -19,32 +19,6 @@ class TestDie(unittest.TestCase):
         test_show
     '''
 
-    def _compare_data_frames_of_faces_and_weights(self, array_of_faces):
-        '''
-        Compares data frames of faces and weights
-
-        Keyword arguments:
-            array of faces -- a numpy array of faces. A face must have a data type of string, int, or float. All faces in the numpy array must have the same data type. The faces in the numpy array must be unique.
-
-        Return values:
-            none
-
-        Side effects:
-            Compares data frames of faces and weights for an numpy arrays of faces
-
-        Exceptions raised:
-            AssertionError if a shown data frame of faces and weights does not equal an expected data frame of faces and weights
-
-        Restrictions on when this method can be called:
-            none
-        '''
-
-        array_of_weights = np.ones(len(array_of_faces))
-        expected_data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
-        die = Die(array_of_faces)
-        shown_data_frame_of_faces_and_weights = die.show()
-        self.assertTrue(shown_data_frame_of_faces_and_weights.equals(expected_data_frame_of_faces_and_weights))
-
     def test_init(self):
         '''
         Tests Die.__init__
@@ -65,8 +39,19 @@ class TestDie(unittest.TestCase):
             none
         '''
 
-        self._compare_data_frames_of_faces_and_weights(np.array([1, 2, 3, 4]))
-        self._compare_data_frames_of_faces_and_weights(np.array(['1', '2', '3', '4']))
+        array_of_faces = [1, 2, 3, 4]
+        array_of_weights = np.ones(len(array_of_faces))
+        expected_data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
+        die = Die(array_of_faces)
+        shown_data_frame_of_faces_and_weights = die.show()
+        self.assertTrue(shown_data_frame_of_faces_and_weights.equals(expected_data_frame_of_faces_and_weights))
+
+        array_of_faces = ['1', '2', '3', '4']
+        array_of_weights = np.ones(len(array_of_faces))
+        expected_data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
+        die = Die(array_of_faces)
+        shown_data_frame_of_faces_and_weights = die.show()
+        self.assertTrue(shown_data_frame_of_faces_and_weights.equals(expected_data_frame_of_faces_and_weights))
 
     def test_change_weight(self):
         '''
@@ -136,7 +121,7 @@ class TestDie(unittest.TestCase):
         array_of_faces = [1, 2, 3, 4]
         die = Die(array_of_faces)
         die.set_indicator_that_roll_is_being_tested(True)
-        list_of_rolled_faces = data_frame_of_rolled_faces_and_weights = die.roll(20)
+        list_of_rolled_faces = die.roll(20)
         expected_list_of_rolled_faces = [3, 3, 3, 3, 2, 3, 2, 4, 4, 2, 4, 3, 3, 4, 1, 1, 1, 4, 4, 4]
         self.assertEqual(list_of_rolled_faces, expected_list_of_rolled_faces)
 
