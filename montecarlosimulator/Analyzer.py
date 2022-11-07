@@ -37,7 +37,9 @@ class Analyzer:
         '''
 
         self._game = game
-        self._type_of_face = game.get_type_of_face()
+        data_frame_of_rolls_and_dice = self._game.show('wide')
+        face = data_frame_of_rolls_and_dice.at[0, 0]
+        self._type_of_face = type(face)
 
     #def generate_series_of_face_counts(self, roll):
     #    '''
@@ -111,8 +113,6 @@ class Analyzer:
         series_of_rolls_and_number_of_faces_with_counts_greater_than_zero = mask_of_rolls_and_face_counts_greater_than_zero.sum(axis = 1)
         self.data_frame_of_rolls_and_face_counts_where_all_dice_for_one_roll_have_the_same_face = self._data_frame_of_rolls_and_face_counts[series_of_rolls_and_number_of_faces_with_counts_greater_than_zero == 1]
         number_of_rolls_with_number_of_faces_with_counts_greater_than_zero_equal_to_one = self.data_frame_of_rolls_and_face_counts_where_all_dice_for_one_roll_have_the_same_face.shape[0]
-        print()
-        print(self.data_frame_of_rolls_and_face_counts_where_all_dice_for_one_roll_have_the_same_face)
         return number_of_rolls_with_number_of_faces_with_counts_greater_than_zero_equal_to_one
 
     def generate_data_frame_of_face_combinations_and_counts(self):

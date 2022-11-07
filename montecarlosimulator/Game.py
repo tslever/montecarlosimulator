@@ -95,23 +95,3 @@ class Game:
             return self._data_frame_of_rolls_and_dice
         else:
             raise ValueError('the form of the data frame of rolls and dice must be either narrow or wide')
-
-    def get_type_of_face(self):
-        '''
-        Returns the type of a face of a die in this game's list of dice
-
-        Keyword arguments:
-            none
-
-        Return values:
-            _type_of_face: numpy.dtype -- The type of a face of a die in this game's list of dice
-
-        Side effects:
-            none
-
-        Restrictions on when this method can be called:
-            none
-        '''
-
-        die = self._list_of_dice[0]
-        return die.get_type_of_face()

@@ -153,32 +153,6 @@ class TestDie(unittest.TestCase):
         shown_data_frame_of_faces_and_weights = die.show()
         self.assertTrue(shown_data_frame_of_faces_and_weights.equals(expected_data_frame_of_faces_and_weights))
 
-    def test_get_type_of_face(self):
-        '''
-        Tests Die.get_type_of_face
-
-        Keyword arguments:
-            none
-
-        Return values:
-            none
-
-        Side effects:
-            Ensures that a gotten type of a face of a die equals an expected type
-
-        Exceptions raised:
-            AssertionError if a gotten type of a face of a die does not equal an expected type
-
-        Restrictions on when this method can be called:
-            none
-        '''
-
-        array_of_faces = np.array([1, 2, 3, 4], dtype = np.int8)
-        die = Die(array_of_faces)
-        type_of_face = die.get_type_of_face()
-        expected_type_of_face = np.int8
-        self.assertEqual(type_of_face, expected_type_of_face)
-
 if __name__ == "__main__":
     verbose = 2
     unittest.main(verbosity = verbose)

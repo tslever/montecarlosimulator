@@ -48,12 +48,7 @@ class Die:
         '''
 
         array_of_weights = np.ones(len(array_of_faces))
-        self._data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
-        if (len(array_of_faces) > 0):
-            face = array_of_faces[0]
-            self._type_of_face = type(face)
-        else:
-            self._type_of_face = None
+        self._data_frame_of_faces_and_weights = pd.DataFrame({'face': array_of_faces, 'weight': array_of_weights})
 
     def change_weight(self, face, weight):
         '''
@@ -104,8 +99,12 @@ class Die:
         '''
         
         the_random_state = 0 if Die._roll_is_being_tested else None
-        data_frame_of_rolled_faces_and_weights = self._data_frame_of_faces_and_weights.sample(n = number_of_rolls, replace = True, weights = 'weight', random_state = the_random_state, axis = None, ignore_index = False)
-        list_of_rolled_faces = data_frame_of_rolled_faces_and_weights.index.to_list()
+        if self._data_frame_of_faces_and_weights.shape[0] > 0:
+            type_of_face = type(self._data_frame_of_faces_and_weights.at[0, 'face'])
+        else:
+            type_of_face = None
+        data_frame_of_rolled_faces_and_weights = self._data_frame_of_faces_and_weights.sample(n = number_of_rolls, replace = True, weights = 'weight', random_state = the_random_state, axis = None, ignore_index = False).reset_index(drop = True)
+        list_of_rolled_faces = [type_of_face(element) for element in data_frame_of_rolled_faces_and_weights['face'].to_list()]
         return list_of_rolled_faces
 
     def show(self):
@@ -130,22 +129,3 @@ class Die:
 
         #print(self._data_frame_of_faces_and_weights)
         return self._data_frame_of_faces_and_weights
-
-    def get_type_of_face(self):
-        '''
-        Returns the type of a face of this die
-
-        Keyword arguments:
-            none
-
-        Return values:
-            _type_of_face: numpy.dtype -- The type of a face of this die
-
-        Side effects:
-            none
-
-        Restrictions on when this method can be called:
-            none
-        '''
-
-        return self._type_of_face
