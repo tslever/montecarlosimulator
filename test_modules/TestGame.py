@@ -41,7 +41,7 @@ class TestDie(unittest.TestCase):
 
         Die._roll_is_being_tested = True
         list_of_dice = []
-        array_of_faces = [1, 2, 3, 4]
+        array_of_faces = np.array([1, 2, 3, 4], dtype = np.int8)
         for i in range(0, 10):
             die = Die(array_of_faces)
             list_of_dice.append(die)
@@ -77,7 +77,7 @@ class TestDie(unittest.TestCase):
         
         Die._roll_is_being_tested = True
         list_of_dice = []
-        array_of_faces = [1, 2, 3, 4]
+        array_of_faces = np.array([1, 2, 3, 4], dtype = np.int8)
         for i in range(0, 10):
             die = Die(array_of_faces)
             list_of_dice.append(die)
@@ -115,7 +115,7 @@ class TestDie(unittest.TestCase):
 
         Die._roll_is_being_tested = True
         list_of_dice = []
-        array_of_faces = [1, 2, 3, 4]
+        array_of_faces = np.array([1, 2, 3, 4], dtype = np.int8)
         for i in range(0, 10):
             die = Die(array_of_faces)
             list_of_dice.append(die)
@@ -133,6 +133,37 @@ class TestDie(unittest.TestCase):
         self.assertTrue(shown_data_frame_of_rolls_and_dice.equals(shown_data_frame_of_rolls_and_dice))
         print(expected_data_frame_of_rolls_and_dice)
         Die._roll_is_being_tested = False
+
+    def test_get_type_of_face(self):
+        '''
+        Tests Game.get_type_of_face
+
+        Keyword arguments:
+            none
+
+        Return values:
+            none
+
+        Side effects:
+            Ensures that a gotten type of a face of a die equals an expected type
+
+        Exceptions raised:
+            AssertionError if a gotten type of a face of a die does not equal an expected type
+
+        Restrictions on when this method can be called:
+            none
+        '''
+
+        Die._roll_is_being_tested = True
+        list_of_dice = []
+        array_of_faces = np.array([1, 2, 3, 4], dtype = np.int8)
+        for i in range(0, 10):
+            die = Die(array_of_faces)
+            list_of_dice.append(die)
+        game = Game(list_of_dice)
+        type_of_face = game.get_type_of_face()
+        expected_type_of_face = np.int8
+        self.assertEqual(type_of_face, expected_type_of_face)
 
 if __name__ == "__main__":
     verbose = 2

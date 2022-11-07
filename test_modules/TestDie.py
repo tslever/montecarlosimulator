@@ -39,14 +39,14 @@ class TestDie(unittest.TestCase):
             none
         '''
 
-        array_of_faces = [1, 2, 3, 4]
+        array_of_faces = np.array([1, 2, 3, 4], dtype = np.int8)
         array_of_weights = np.ones(len(array_of_faces))
         expected_data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
         die = Die(array_of_faces)
         shown_data_frame_of_faces_and_weights = die.show()
         self.assertTrue(shown_data_frame_of_faces_and_weights.equals(expected_data_frame_of_faces_and_weights))
 
-        array_of_faces = ['1', '2', '3', '4']
+        array_of_faces = np.array(['1', '2', '3', '4'], dtype = str)
         array_of_weights = np.ones(len(array_of_faces))
         expected_data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
         die = Die(array_of_faces)
@@ -77,7 +77,7 @@ class TestDie(unittest.TestCase):
             none
         '''
 
-        array_of_faces = [1, 2, 3, 4]
+        array_of_faces = np.array([1, 2, 3, 4], dtype = np.int8)
         array_of_weights = np.ones(len(array_of_faces))
         array_of_weights[0] = 2.0
         expected_data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
@@ -119,7 +119,7 @@ class TestDie(unittest.TestCase):
         '''
         
         Die._roll_is_being_tested = True
-        array_of_faces = [1, 2, 3, 4]
+        array_of_faces = np.array([1, 2, 3, 4], dtype = np.int8)
         die = Die(array_of_faces)
         list_of_rolled_faces = die.roll(20)
         expected_list_of_rolled_faces = [3, 3, 3, 3, 2, 3, 2, 4, 4, 2, 4, 3, 3, 4, 1, 1, 1, 4, 4, 4]
@@ -146,12 +146,38 @@ class TestDie(unittest.TestCase):
             none
         '''
 
-        array_of_faces = [1, 2, 3, 4]
+        array_of_faces = np.array([1, 2, 3, 4], dtype = np.int8)
         array_of_weights = np.ones(len(array_of_faces))
         expected_data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
         die = Die(array_of_faces)
         shown_data_frame_of_faces_and_weights = die.show()
         self.assertTrue(shown_data_frame_of_faces_and_weights.equals(expected_data_frame_of_faces_and_weights))
+
+    def test_get_type_of_face(self):
+        '''
+        Tests Die.get_type_of_face
+
+        Keyword arguments:
+            none
+
+        Return values:
+            none
+
+        Side effects:
+            Ensures that a gotten type of a face of a die equals an expected type
+
+        Exceptions raised:
+            AssertionError if a gotten type of a face of a die does not equal an expected type
+
+        Restrictions on when this method can be called:
+            none
+        '''
+
+        array_of_faces = np.array([1, 2, 3, 4], dtype = np.int8)
+        die = Die(array_of_faces)
+        type_of_face = die.get_type_of_face()
+        expected_type_of_face = np.int8
+        self.assertEqual(type_of_face, expected_type_of_face)
 
 if __name__ == "__main__":
     verbose = 2

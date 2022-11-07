@@ -49,6 +49,11 @@ class Die:
 
         array_of_weights = np.ones(len(array_of_faces))
         self._data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
+        if (len(array_of_faces) > 0):
+            face = array_of_faces[0]
+            self._type_of_face = type(face)
+        else:
+            self._type_of_face = None
 
     def change_weight(self, face, weight):
         '''
@@ -123,5 +128,24 @@ class Die:
             none
         '''
 
-        print(self._data_frame_of_faces_and_weights)
+        #print(self._data_frame_of_faces_and_weights)
         return self._data_frame_of_faces_and_weights
+
+    def get_type_of_face(self):
+        '''
+        Returns the type of a face of this die
+
+        Keyword arguments:
+            none
+
+        Return values:
+            _type_of_face: numpy.dtype -- The type of a face of this die
+
+        Side effects:
+            none
+
+        Restrictions on when this method can be called:
+            none
+        '''
+
+        return self._type_of_face
