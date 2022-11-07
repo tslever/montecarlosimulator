@@ -38,6 +38,7 @@ class Game:
         '''
 
         self._list_of_dice = list_of_dice
+        self._this_game_has_been_played = False
 
     def play(self, number_of_rolls):
         '''
@@ -64,6 +65,7 @@ class Game:
         for i in range(0, len(self._list_of_dice)):
             die = self._list_of_dice[i]
             self._data_frame_of_rolls_and_dice[i] = die.roll(number_of_rolls)
+        self._this_game_has_been_played = True
 
     def show(self, form):
         '''
@@ -79,17 +81,20 @@ class Game:
             Displays the data frame of rolls and dice of this Game object or a version of that data frame in narrow form
 
         Exceptions raised:
+            AssertionError if this game has not been played
             ValueError if the provided form is neither narrow nor wide
 
         Restrictions on when this method can be called:
-            Must be called after play
+            none
         '''
 
+        if not self._this_game_has_been_played:
+            raise AssertionError('this game has not been played')
         if form == 'narrow':
-            narrow_data_frame_of_rolls_and_dice = self._data_frame_of_rolls_and_dice.stack().to_frame('face')
-            narrow_data_frame_of_rolls_and_dice.index.rename(['roll_index', 'die_index'], inplace = True)
-            #print(narrow_data_frame_of_rolls_and_dice)
-            return narrow_data_frame_of_rolls_and_dice
+            data_frame_of_rolls_dice_and_faces = self._data_frame_of_rolls_and_dice.stack().to_frame('face')
+            data_frame_of_rolls_dice_and_faces.index.rename(['roll_index', 'die_index'], inplace = True)
+            #print(data_frame_of_rolls_dice_and_faces)
+            return data_frame_of_rolls_dice_and_faces
         elif form == 'wide':
             #print(self._data_frame_of_rolls_and_dice)
             return self._data_frame_of_rolls_and_dice

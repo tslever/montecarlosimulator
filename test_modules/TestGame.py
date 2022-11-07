@@ -131,7 +131,6 @@ class TestDie(unittest.TestCase):
         expected_data_frame_of_rolls_and_dice = expected_data_frame_of_rolls_and_dice.stack().to_frame('face')
         expected_data_frame_of_rolls_and_dice.index.rename(['roll_index', 'die_index'], inplace = True)
         self.assertTrue(shown_data_frame_of_rolls_and_dice.equals(shown_data_frame_of_rolls_and_dice))
-        print(expected_data_frame_of_rolls_and_dice)
         Die._roll_is_being_tested = False
 
 if __name__ == "__main__":

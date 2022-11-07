@@ -2,6 +2,8 @@
 Module for class Analyzer, which generates structures of descriptive statistics for a game that has been played
 '''
 
+import pandas as pd
+
 class Analyzer:
     '''
     Encapsulates structures of descriptive statistics for a game that has been played and methods to generate these structures of descriptive statistics
@@ -85,8 +87,8 @@ class Analyzer:
         '''
 
         data_frame_of_rolls_and_dice = self._game.show('wide')
-        self._data_frame_of_rolls_and_face_counts = data_frame_of_rolls_and_dice.apply(lambda series_of_faces: series_of_faces.value_counts(), axis = 1).fillna(0).astype(dtype = self._type_of_face).rename_axis(columns = 'face')
-        return self._data_frame_of_rolls_and_face_counts
+        self.data_frame_of_rolls_and_face_counts = data_frame_of_rolls_and_dice.apply(lambda series_of_faces: series_of_faces.value_counts(), axis = 1).fillna(0).astype(dtype = self._type_of_face).rename_axis(columns = 'face')
+        return self.data_frame_of_rolls_and_face_counts
 
     def generate_data_frame_of_rolls_and_face_counts_where_all_dice_for_one_roll_have_the_same_face(self):
         '''
@@ -109,11 +111,43 @@ class Analyzer:
         '''
 
         self.generate_data_frame_of_rolls_and_face_counts()
-        mask_of_rolls_and_face_counts_greater_than_zero = (self._data_frame_of_rolls_and_face_counts > 0)
+        mask_of_rolls_and_face_counts_greater_than_zero = (self.data_frame_of_rolls_and_face_counts > 0)
         series_of_rolls_and_number_of_faces_with_counts_greater_than_zero = mask_of_rolls_and_face_counts_greater_than_zero.sum(axis = 1)
-        self.data_frame_of_rolls_and_face_counts_where_all_dice_for_one_roll_have_the_same_face = self._data_frame_of_rolls_and_face_counts[series_of_rolls_and_number_of_faces_with_counts_greater_than_zero == 1]
+        self.data_frame_of_rolls_and_face_counts_where_all_dice_for_one_roll_have_the_same_face = self.data_frame_of_rolls_and_face_counts[series_of_rolls_and_number_of_faces_with_counts_greater_than_zero == 1]
         number_of_rolls_with_number_of_faces_with_counts_greater_than_zero_equal_to_one = self.data_frame_of_rolls_and_face_counts_where_all_dice_for_one_roll_have_the_same_face.shape[0]
         return number_of_rolls_with_number_of_faces_with_counts_greater_than_zero_equal_to_one
 
     def generate_data_frame_of_face_combinations_and_counts(self):
-        pass
+        '''
+        Generates a data frame of face combinations and counts of how many times each face combination was rolled
+
+        Keyword arguments:
+            none
+
+        Return values:
+            a data frame of face combinations and counts of how many times each face combination was rolled
+
+        Side effects:
+            Stores a data frame of face combinations and counts of how many times each face combination was rolled
+
+        Exceptions raised:
+            none
+
+        Restrictions on when this method can be called:
+            none
+        '''
+
+        data_frame_of_rolls_and_dice = self._game.show('wide')
+        number_of_faces = data_frame_of_rolls_and_dice.shape[1]
+        list_with_elements_face = ['face'] * number_of_faces
+        empty_multiIndex = pd.MultiIndex.from_tuples([], names = list_with_elements_face)
+        self.data_frame_of_face_combinations_and_counts = pd.DataFrame(index = empty_multiIndex, columns = ['count'])
+        for roll_index, series_of_faces in data_frame_of_rolls_and_dice.iterrows():
+            list_of_faces = series_of_faces.to_list()
+            list_of_sorted_faces = sorted(list_of_faces)
+            face_combination = tuple(list_of_sorted_faces)
+            if self.data_frame_of_face_combinations_and_counts.index.isin([face_combination]).any():
+                self.data_frame_of_face_combinations_and_counts.at[face_combination, 'count'] += 1
+            else:
+                self.data_frame_of_face_combinations_and_counts.at[face_combination, 'count'] = 1
+        return self.data_frame_of_face_combinations_and_counts
