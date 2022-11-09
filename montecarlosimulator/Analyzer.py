@@ -14,7 +14,7 @@ class Analyzer:
     Public methods:
         __init__
         generate_data_frame_of_rolls_and_face_counts
-        generate_data_frame_of_rolls_and_face_counts_where_all_dice_for_one_roll_have_the_same_face
+        get_number_of_rolls_where_all_dice_have_the_same_face
     '''
 
     def __init__(self, game):
@@ -42,29 +42,7 @@ class Analyzer:
         data_frame_of_rolls_and_dice = self._game.show('wide')
         face = data_frame_of_rolls_and_dice.at[0, 0]
         self._type_of_face = type(face)
-
-    #def generate_series_of_face_counts(self, roll):
-    #    '''
-    #    Generates a series of face counts for a roll
-    #
-    #    Keyword arguments:
-    #        roll: int -- a roll index
-    #
-    #    Return values:
-    #        a series of face counts for a roll
-    #
-    #    Side effects:
-    #        Stores a data frame of rolls and face counts, where the number of rows and observations is the number of rolls, the number of columns and features is the number of faces, and each cell value is a count of the number of dice for one roll with a face
-    #
-    #    Exceptions raised:
-    #        none
-    #
-    #    Restrictions are when this method can be called:
-    #        none
-    #    '''
-    #
-    #    self.generate_data_frame_of_rolls_and_face_counts()
-    #    return self._data_frame_of_rolls_and_face_counts.iloc[roll]
+        self._data_frame_of_face_combinations_and_counts_needs_to_be_generated = True
 
     def generate_data_frame_of_rolls_and_face_counts(self):
         '''
@@ -90,9 +68,9 @@ class Analyzer:
         self.data_frame_of_rolls_and_face_counts = data_frame_of_rolls_and_dice.apply(lambda series_of_faces: series_of_faces.value_counts(), axis = 1).fillna(0).astype(dtype = self._type_of_face).rename_axis(columns = 'face')
         return self.data_frame_of_rolls_and_face_counts
 
-    def generate_data_frame_of_rolls_and_face_counts_where_all_dice_for_one_roll_have_the_same_face(self):
+    def get_number_of_rolls_where_all_dice_have_the_same_face(self, data_frame_of_face_combinations_and_counts_where_combinations_have_all_faces_the_same_should_be_created = True):
         '''
-        Generates a data frame of rolls and face counts where all dice for one roll have the same face
+        Gets the number of rolls where all dice for one roll have the same face
 
         Keyword arguments:
             none
@@ -110,12 +88,20 @@ class Analyzer:
             none
         '''
 
-        self.generate_data_frame_of_rolls_and_face_counts()
-        mask_of_rolls_and_face_counts_greater_than_zero = (self.data_frame_of_rolls_and_face_counts > 0)
-        series_of_rolls_and_number_of_faces_with_counts_greater_than_zero = mask_of_rolls_and_face_counts_greater_than_zero.sum(axis = 1)
-        self.data_frame_of_rolls_and_face_counts_where_all_dice_for_one_roll_have_the_same_face = self.data_frame_of_rolls_and_face_counts[series_of_rolls_and_number_of_faces_with_counts_greater_than_zero == 1]
-        number_of_rolls_with_number_of_faces_with_counts_greater_than_zero_equal_to_one = self.data_frame_of_rolls_and_face_counts_where_all_dice_for_one_roll_have_the_same_face.shape[0]
-        return number_of_rolls_with_number_of_faces_with_counts_greater_than_zero_equal_to_one
+        if self._data_frame_of_face_combinations_and_counts_needs_to_be_generated:
+            self.generate_data_frame_of_face_combinations_and_counts()
+            self._data_frame_of_face_combinations_and_counts_needs_to_be_generated = False
+        if (data_frame_of_face_combinations_and_counts_where_combinations_have_all_faces_the_same_should_be_created):
+            list_with_elements_face = ['face'] * len(self.data_frame_of_face_combinations_and_counts.index[0])
+            empty_multiIndex = pd.MultiIndex.from_tuples([], names = list_with_elements_face)
+            self.data_frame_of_face_combinations_and_counts_where_combinations_have_all_faces_the_same = pd.DataFrame(index = empty_multiIndex, columns = ['count'])
+        number_of_rolls_where_all_dice_have_the_same_face = 0
+        for face_combination, series_of_face_combination_and_count in self.data_frame_of_face_combinations_and_counts.iterrows():
+            if len(set(face_combination)) == 1:
+                number_of_rolls_where_all_dice_have_the_same_face += series_of_face_combination_and_count['count']
+                if (data_frame_of_face_combinations_and_counts_where_combinations_have_all_faces_the_same_should_be_created):
+                    self.data_frame_of_face_combinations_and_counts_where_combinations_have_all_faces_the_same.loc[face_combination, :] = series_of_face_combination_and_count['count']
+        return number_of_rolls_where_all_dice_have_the_same_face
 
     def generate_data_frame_of_face_combinations_and_counts(self):
         '''
@@ -150,4 +136,28 @@ class Analyzer:
                 self.data_frame_of_face_combinations_and_counts.at[face_combination, 'count'] += 1
             else:
                 self.data_frame_of_face_combinations_and_counts.at[face_combination, 'count'] = 1
+        self._data_frame_of_face_combinations_and_counts_needs_to_be_generated = False
         return self.data_frame_of_face_combinations_and_counts
+
+    def play(self, number_of_rolls):
+        '''
+        Plays this analyzer's game and indicates that this analyzer's data frame of face combinations and counts needs to be generated
+
+        Keyword arguments:
+            none
+
+        Return values:
+            none
+
+        Side effects:
+            Plays this analyzer's game and indicates that this analyzer's data frame of face combinations and counts needs to be generated
+
+        Exceptions raised:
+            none
+
+        Restrictions on when this method can be called:
+            none
+        '''
+
+        self._game.play(number_of_rolls)
+        self._data_frame_of_face_combinations_and_counts_needs_to_be_generated = True

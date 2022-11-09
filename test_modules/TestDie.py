@@ -41,14 +41,14 @@ class TestDie(unittest.TestCase):
 
         array_of_faces = np.array([1, 2, 3, 4], dtype = np.int8)
         array_of_weights = np.ones(len(array_of_faces))
-        expected_data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
+        expected_data_frame_of_faces_and_weights = pd.DataFrame({'face': array_of_faces, 'weight': array_of_weights})
         die = Die(array_of_faces)
         shown_data_frame_of_faces_and_weights = die.show()
         self.assertTrue(shown_data_frame_of_faces_and_weights.equals(expected_data_frame_of_faces_and_weights))
 
         array_of_faces = np.array(['1', '2', '3', '4'], dtype = str)
         array_of_weights = np.ones(len(array_of_faces))
-        expected_data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
+        expected_data_frame_of_faces_and_weights = pd.DataFrame({'face': array_of_faces, 'weight': array_of_weights})
         die = Die(array_of_faces)
         shown_data_frame_of_faces_and_weights = die.show()
         self.assertTrue(shown_data_frame_of_faces_and_weights.equals(expected_data_frame_of_faces_and_weights))
@@ -80,7 +80,7 @@ class TestDie(unittest.TestCase):
         array_of_faces = np.array([1, 2, 3, 4], dtype = np.int8)
         array_of_weights = np.ones(len(array_of_faces))
         array_of_weights[0] = 2.0
-        expected_data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
+        expected_data_frame_of_faces_and_weights = pd.DataFrame({'face': array_of_faces, 'weight': array_of_weights})
         die = Die(array_of_faces)
         die.change_weight(1, 2.0)
         shown_data_frame_of_faces_and_weights = die.show()
@@ -137,7 +137,7 @@ class TestDie(unittest.TestCase):
             none
 
         Side effects:
-            Compares data frames of faces and weights for a numpy arrays of faces
+            Compares data frames of faces and weights for numpy arrays of integer and string faces
 
         Exceptions raised:
             AssertionError if a shown data frame of faces and weights does not equal an expected data frame of faces and weights
@@ -148,9 +148,16 @@ class TestDie(unittest.TestCase):
 
         array_of_faces = np.array([1, 2, 3, 4], dtype = np.int8)
         array_of_weights = np.ones(len(array_of_faces))
-        expected_data_frame_of_faces_and_weights = pd.DataFrame({'weight': array_of_weights}, index = array_of_faces)
+        expected_data_frame_of_faces_and_weights = pd.DataFrame({'face': array_of_faces, 'weight': array_of_weights})
         die = Die(array_of_faces)
         shown_data_frame_of_faces_and_weights = die.show()
+        self.assertTrue(shown_data_frame_of_faces_and_weights.equals(expected_data_frame_of_faces_and_weights))
+
+        array_of_faces = np.array(['H', 'T'], dtype = str)
+        fair_coin = Die(array_of_faces)
+        shown_data_frame_of_faces_and_weights = fair_coin.show()
+        array_of_weights = np.ones(len(array_of_faces))
+        expected_data_frame_of_faces_and_weights = pd.DataFrame({'face': array_of_faces, 'weight': array_of_weights})
         self.assertTrue(shown_data_frame_of_faces_and_weights.equals(expected_data_frame_of_faces_and_weights))
 
 if __name__ == "__main__":

@@ -71,12 +71,14 @@ class Die:
             none
         '''
 
-        if face not in self._data_frame_of_faces_and_weights.index:
+        if not face in self._data_frame_of_faces_and_weights['face'].to_list():
             raise ValueError('face is not in index of faces')
         # Checks to see if weight can be converted to np.float64.
         # If not, raises ValueError: could not convert <weight type> to float: <weight value>
         weight = np.float64(weight)
-        self._data_frame_of_faces_and_weights.at[face, 'weight'] = weight
+        mask_face_column_equals_face = self._data_frame_of_faces_and_weights['face'] == face
+        index_of_row_with_face = self._data_frame_of_faces_and_weights.index[mask_face_column_equals_face][0]
+        self._data_frame_of_faces_and_weights.at[index_of_row_with_face, 'weight'] = weight
 
     def roll(self, number_of_rolls = 1):
         '''
