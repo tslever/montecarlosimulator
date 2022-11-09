@@ -124,6 +124,17 @@ class TestDie(unittest.TestCase):
         list_of_rolled_faces = die.roll(20)
         expected_list_of_rolled_faces = [3, 3, 3, 3, 2, 3, 2, 4, 4, 2, 4, 3, 3, 4, 1, 1, 1, 4, 4, 4]
         self.assertEqual(list_of_rolled_faces, expected_list_of_rolled_faces)
+
+        array_of_faces = np.array(['H', 'T'], dtype = str)
+        die = Die(array_of_faces)
+        list_of_rolled_faces = die.roll(10000)
+        number_of_heads = list_of_rolled_faces.count('H')
+        self.assertEqual(5064, number_of_heads)
+
+        die.change_weight('H', 5.0)
+        list_of_rolled_faces = die.roll(10000)
+        number_of_heads = list_of_rolled_faces.count('H')
+        self.assertEqual(8345, number_of_heads)
         Die._roll_is_being_tested = False
 
     def test_show(self):
