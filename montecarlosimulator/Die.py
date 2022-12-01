@@ -65,7 +65,7 @@ class Die:
             Changes the weight of the provided face to the provided weight
 
         Exceptions raised:
-            ValueError, if the provided face is not in the index of this Die object's dataframe of faces and weights, or if the provided weight cannot be converted to a np.float64 object
+            ValueError, if the provided face is not in the index of this Die object's data frame of faces and weights, or if the provided weight cannot be converted to a np.float64 object
 
         Restrictions on when this method can be called:
             none
