@@ -16,11 +16,6 @@ print(die_2.show())
 list_of_dice = [die, die_2]
 from montecarlosimulator import Game
 game = Game(list_of_dice)
-try:
-    print(game.show(form = 'wide'))
-except AssertionError as e:
-    print(e)
-
 game.play(number_of_rolls = 1000)
 print(game.show(form = 'wide'))
 

@@ -101,13 +101,6 @@ Run the following code after the above code to
         list_of_dice = [die, die_2]
         from montecarlosimulator import Game
         game = Game(list_of_dice)
-        try:
-            print(game.show(form = 'wide'))
-        except AssertionError as e:
-            print(e)
-
-        this game has not been played
-
         game.play(number_of_rolls = 1000)
         print(game.show(form = 'wide'))
 
