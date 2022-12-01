@@ -46,29 +46,29 @@ Run the following code to
 * roll the die and acquire a list of rolled faces, and
 * display the list of rolled faces.
 
-    import numpy as np
-    from montecarlosimulator import Die
-    array_of_faces = np.array(['A', 'B', 'C'], dtype = str)
-    die = Die(array_of_faces)
-    die.show()
+        import numpy as np
+        from montecarlosimulator import Die
+        array_of_faces = np.array(['A', 'B', 'C'], dtype = str)
+        die = Die(array_of_faces)
+        die.show()
 
-      face  weight
-    0    A     1.0
-    1    B     1.0
-    2    C     1.0
+          face  weight
+        0    A     1.0
+        1    B     1.0
+        2    C     1.0
 
-    die.change_weight(face = 'A', weight = 2.0)
-    die.show()
+        die.change_weight(face = 'A', weight = 2.0)
+        die.show()
 
-      face  weight
-    0    A     2.0
-    1    B     1.0
-    2    C     1.0
+          face  weight
+        0    A     2.0
+        1    B     1.0
+        2    C     1.0
 
-    list_of_rolled_faces = die.roll(number_of_rolls = 3)
-    list_of_rolled_faces
+        list_of_rolled_faces = die.roll(number_of_rolls = 3)
+        list_of_rolled_faces
 
-    ['B', 'C', 'A']
+        ['B', 'C', 'A']
 
 ## Playing games
 
@@ -89,13 +89,13 @@ A weight has a data type of `float`.
 
 #### Public methods
 
-__init__
+`__init__`
 
-change_weight
+`change_weight`
 
-roll
+`roll`
 
-show
+`show`
 
 ##### __init__
 
@@ -105,23 +105,23 @@ Initializes a Die object
 
 Keyword arguments:
 
-    `array_of_faces`: `np.ndarray` -- a 1D `numpy` array of faces. A face must have a data type of `str`, `int`, or `float`. All faces in the `numpy` array have the same data type. The faces in the `numpy` array must be unique.
+`array_of_faces`: `np.ndarray` -- a 1D `numpy` array of faces. A face must have a data type of `str`, `int`, or `float`. All faces in the `numpy` array have the same data type. The faces in the `numpy` array must be unique.
 
 Return values:
 
-    none
+none
 
 Side effects:
 
-    Initializes this Die object's data frame of faces and weights
+Initializes this Die object's data frame of faces and weights
 
 Exceptions raised:
 
-    none
+none
 
 Restrictions on when this method can be called:
 
-    May not be called directly
+May not be called directly
 
 ###### Keyword arguments
 
@@ -145,19 +145,19 @@ Keyword arguments:
 
 Return values:
 
-    none
+none
 
 Side effects:
 
-    Changes the weight of the provided face to the provided weight
+Changes the weight of the provided face to the provided weight
 
 Exceptions raised:
 
-    `ValueError`, if the provided face is not in the index of this `Die` object's data frame of faces and weights, or if the provided weight cannot be converted to a `np.float64` object
+`ValueError`, if the provided face is not in the index of this `Die` object's data frame of faces and weights, or if the provided weight cannot be converted to a `np.float64` object
 
 Restrictions on when this method can be called:
 
-    none
+none
 
 ###### Keyword arguments
 
@@ -177,23 +177,23 @@ Rolls this `Die` object one or more times
 
 Keyword arguments:
 
-    `number_of_rolls`: `int` -- An integer. Defaults to $1$.
+`number_of_rolls`: `int` -- An integer. Defaults to $1$.
 
 Return values:
 
-    `list_of_rolled_faces`: `list` -- A list of rolled faces
+`list_of_rolled_faces`: `list` -- A list of rolled faces
 
 Side effects:
 
-    Samples rows from the data frame of faces and weights of this `Die` object according to the weights
+Samples rows from the data frame of faces and weights of this `Die` object according to the weights
 
 Exceptions raised:
 
-    none
+none
 
 Restrictions on when this method can be called:
 
-    none
+none
 
 ###### Keyword arguments
 
@@ -211,23 +211,23 @@ Displays and provides the data frame of faces and weights of this `Die` object
 
 Keyword arguments:
 
-    none
+none
 
 Return values:
 
-    `_data_frame_of_faces_and_weights`: `pd.DataFrame` -- The data frame of faces and weights of this `Die` object
+`_data_frame_of_faces_and_weights`: `pd.DataFrame` -- The data frame of faces and weights of this `Die` object
 
 Side effects:
 
-    Displays the data frame of faces and weights of this `Die` object
+Displays the data frame of faces and weights of this `Die` object
 
 Exceptions raised:
 
-    none
+none
 
 Restrictions on when this method can be called:
 
-    none
+none
 
 ###### Keyword arguments
 
