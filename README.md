@@ -72,7 +72,7 @@ Run the following code to
 
 ## Playing games
 
-Run the following code after the above code to
+Run the following code after creating one or more dice to
 
 * create a second die,
 
@@ -81,8 +81,6 @@ Run the following code after the above code to
 * create a list of dice,
 
 * create a game,
-
-* receive an `AssertionError` that a game has not been played when attempting to show the game's data frame of rolls and dice,
 
 * play the game by rolling the dice $1000$ times,
 
@@ -133,6 +131,76 @@ Run the following code after the above code to
                    1            A
         999        0            B
                    1            A
+
+## Analyzing games
+
+Run the following code after playing a game to
+
+* reate an analyzer,
+
+* generate and print a data frame of rolls and face counts,
+
+* get and print a number of rolls where all dice have the same face,
+
+* generate and print a data frame of face combinations and counts,
+
+* replay the game of the analyzer, and
+
+* regenerate and print a data frame of rolls and face counts.
+
+        from montecarlosimulator import Analyzer
+        analyzer = Analyzer(game)
+        data_frame_of_rolls_and_face_counts = analyzer.generate_data_frame_of_rolls_and_face_counts()
+        print(data_frame_of_rolls_and_face_counts)
+
+        face          A    B    C
+        roll_index
+        0           0.0  0.0  2.0
+        1           1.0  0.0  1.0
+        2           0.0  2.0  0.0
+        3           1.0  0.0  1.0
+        4           1.0  1.0  0.0
+        ...         ...  ...  ...
+        995         1.0  1.0  0.0
+        996         0.0  1.0  1.0
+        997         0.0  0.0  2.0
+        998         1.0  0.0  1.0
+        999         2.0  0.0  0.0
+
+        number_of_rolls_where_all_dice_have_the_same_face = analyzer.get_number_of_rolls_where_all_dice_have_the_same_face()
+        print(number_of_rolls_where_all_dice_have_the_same_face)
+
+        300
+
+        data_frame_of_face_combinations_and_counts = analyzer.generate_data_frame_of_face_combinations_and_counts()
+        print(data_frame_of_face_combinations_and_counts)
+
+                  count
+        face face
+        C    C       59
+        A    C      276
+        B    B       75
+        A    B      247
+        B    C      177
+        A    A      166
+
+        analyzer.play(1000)
+        data_frame_of_rolls_and_face_counts = analyzer.generate_data_frame_of_rolls_and_face_counts()
+        print(data_frame_of_rolls_and_face_counts)
+
+        face          A    B    C
+        roll_index
+        0           0.0  2.0  0.0
+        1           1.0  0.0  1.0
+        2           1.0  1.0  0.0
+        3           2.0  0.0  0.0
+        4           1.0  1.0  0.0
+        ...         ...  ...  ...
+        995         2.0  0.0  0.0
+        996         0.0  0.0  2.0
+        997         1.0  1.0  0.0
+        998         2.0  0.0  0.0
+        999         0.0  1.0  1.0
 
 ## API description
 
@@ -412,6 +480,196 @@ none
 ###### Keyword arguments
 
 `form`: `str` -- narrow or wide
+
+###### Return values
+
+none
+
+### Analyzer
+
+#### Description
+
+Encapsulates structures of descriptive statistics for a game that has been played and methods to generate these structures of descriptive statistics
+
+#### Public methods
+
+`__init__`
+
+`generate_data_frame_of_rolls_and_face_counts`
+
+`get_number_of_rolls_where_all_dice_have_the_same_face`
+
+`generate_data_frame_of_face_combinations_and_counts`
+
+`play`
+
+##### __init__
+
+###### Docstring
+
+Initializes an `Analyzer` object with a `Game` object, and
+infers the data type of each face of each die in the `Game` object's list of dice
+
+Keyword arguments:
+
+`game`: `Game` -- a `Game` object
+
+Return values:
+
+none
+
+Side effects:
+
+Initializes this `Analyzer` object's `Game` object
+
+Exceptions raised:
+
+none
+
+Restrictions on when this method can be called:
+
+May not be called directly
+
+###### Keyword arguments
+
+`game`: `Game` -- a `Game` object
+
+###### Return values
+
+none
+
+##### generate_data_frame_of_rolls_and_face_counts
+
+###### Docstring
+
+Generates a data frame of rolls and face counts, where the number of rows and observations is the number of rolls, the number of columns and features is the number of faces, and each cell value is a count of the number of dice for one roll with a face
+
+Keyword arguments:
+
+none
+
+Return values:
+
+a data frame of rolls and face counts, where the number of rows and observations is the number of rolls, the number of columns and features is the number of faces, and each cell value is a count of the number of dice for one roll with a face
+
+Side effects:
+
+Stores a data frame of rolls and face counts, where the number of rows and observations is the number of rolls, the number of columns and features is the number of faces, and each cell value is a count of the number of dice for one roll with a face
+
+Exceptions raised:
+
+none
+
+Restrictions are when this method can be called:
+
+none
+
+###### Keyword arguments
+
+none
+
+###### Return values
+
+a data frame of rolls and face counts, where the number of rows and observations is the number of rolls, the number of columns and features is the number of faces, and each cell value is a count of the number of dice for one roll with a face
+
+##### get_number_of_rolls_where_all_dice_have_the_same_face
+
+###### Docstring
+
+Gets the number of rolls where all dice for one roll have the same face
+
+Keyword arguments:
+
+none
+
+Return values:
+
+a number of rolls where all dice have the same face
+
+Side effects:
+
+May call generate_data_frame_of_face_combinations_and_counts
+Creates a data frame of face combinations and counts where combinations have all faces the same
+
+Exceptions raised:
+
+none
+
+Restrictions on when this method can be called:
+
+none
+
+###### Keyword arguments
+
+none
+
+###### Return values
+
+a number of rolls where all dice have the same face
+
+##### generate_data_frame_of_face_combinations_and_counts
+
+###### Docstring
+
+Generates a data frame of face combinations and counts of how many times each face combination was rolled
+
+Keyword arguments:
+
+none
+
+Return values:
+
+a data frame of face combinations and counts of how many times each face combination was rolled
+
+Side effects:
+
+Stores a data frame of face combinations and counts of how many times each face combination was rolled
+
+Exceptions raised:
+
+none
+
+Restrictions on when this method can be called:
+
+none
+
+###### Keyword arguments
+
+none
+
+###### Return values
+
+a data frame of face combinations and counts of how many times each face combination was rolled
+
+##### play
+
+###### Docstring
+
+Plays this analyzer's game and indicates that this analyzer's data frame of face combinations and counts needs to be generated
+
+Keyword arguments:
+
+none
+
+Return values:
+
+none
+
+Side effects:
+
+Plays this analyzer's game and indicates that this analyzer's data frame of face combinations and counts needs to be generated
+
+Exceptions raised:
+
+none
+
+Restrictions on when this method can be called:
+
+none
+
+###### Keyword arguments
+
+none
 
 ###### Return values
 

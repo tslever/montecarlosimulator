@@ -15,6 +15,8 @@ class Analyzer:
         __init__
         generate_data_frame_of_rolls_and_face_counts
         get_number_of_rolls_where_all_dice_have_the_same_face
+        generate_data_frame_of_face_combinations_and_counts
+        play
     '''
 
     def __init__(self, game):
@@ -76,10 +78,11 @@ class Analyzer:
             none
 
         Return values:
-            a data frame of rolls and face counts where all dice for one roll have the same face
+            a number of rolls where all dice have the same face
 
         Side effects:
-            Stores a data frame of rolls and face counts where all dice for one roll have the same face
+            May call generate_data_frame_of_face_combinations_and_counts
+            Creates a data frame of face combinations and counts where combinations have all faces the same
 
         Exceptions raised:
             none
