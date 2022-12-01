@@ -10,13 +10,13 @@ class Die:
     May be rolled to select a face.
     Has N sides.
     Each side is associated with a face and a weight.
-    Weights default to 1.0 and can be changed.
+    Weights default to 1.0 and may be changed.
 
     Class variables:
         _roll_is_being_tested: bool -- an indicator of whether roll is being tested
 
     Instance variables:
-        _data_frame_of_faces_and_weights: pd.DataFrame -- a data frame with an index of faces and a column of weights. A face has a data type of str, int, or float. All faces in the index have the same data type. The faces must be unique. A weight has a data type of float.
+        _data_frame_of_faces_and_weights: pd.DataFrame -- a data frame with an index of faces and a column of weights. A face has a data type of str, int, or float. All faces in the column named 'face' have the same data type. The faces must be unique. A weight has a data type of float.
 
     Public methods:
         __init__
@@ -85,7 +85,7 @@ class Die:
         Rolls this Die object one or more times
 
         Keyword arguments:
-            number_of_rolls: int -- An integer
+            number_of_rolls: int -- An integer. Defaults to 1.
 
         Return values:
             list_of_rolled_faces: list -- A list of rolled faces
