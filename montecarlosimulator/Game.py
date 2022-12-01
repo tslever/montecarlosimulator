@@ -6,7 +6,7 @@ import pandas as pd
 
 class Game:
     '''
-    Encapsulates a list of one or more dice with the same set of faces and methods to play by rolling one or more times all dice in the list and show a data frame of rolls and dice or a data frame of rolls, dice, and faces
+    Encapsulates a list of one or more dice with the same set of faces, a method to play this game by rolling one or more times all dice in the list, and a method to show a data frame of rolls and dice or a data frame of rolls, dice, and faces
 
     Instance variables:
         _data_frame_of_rolls_and_dice: pd.DataFrame -- a data frame of rolls and dice, where the number of rows and observations is the number of rolls, the number of columns and features is the number of dice, and each cell value is a face rolled
