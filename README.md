@@ -332,19 +332,19 @@ Keyword arguments:
 
 Return values:
 
-    none
+none
 
 Side effects:
 
-    Initializes this `Game` object's list of one or more dice with the same set of faces
+Initializes this `Game` object's list of one or more dice with the same set of faces
 
 Exceptions raised:
 
-    none
+none
 
 Restrictions on when this method can be called:
 
-    May not be called directly
+May not be called directly
 
 ###### Keyword arguments
 
