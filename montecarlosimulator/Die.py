@@ -105,7 +105,7 @@ class Die:
             type_of_face = type(self._data_frame_of_faces_and_weights.at[0, 'face'])
         else:
             type_of_face = None
-        data_frame_of_rolled_faces_and_weights = self._data_frame_of_faces_and_weights.sample(n = number_of_rolls, replace = True, weights = 'weight', random_state = the_random_state, axis = None).reset_index(drop = True)
+        data_frame_of_rolled_faces_and_weights = self._data_frame_of_faces_and_weights.sample(n = number_of_rolls, replace = True, weights = 'weight', random_state = the_random_state, axis = None, ignore_index = False).reset_index(drop = True)
         list_of_rolled_faces = [type_of_face(element) for element in data_frame_of_rolled_faces_and_weights['face'].to_list()]
         return list_of_rolled_faces
 
