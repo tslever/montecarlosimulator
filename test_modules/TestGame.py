@@ -2,11 +2,13 @@
 Module for class TestGame, which tests the methods of a Game object
 '''
 
-from montecarlosimulator.Die import *
-from montecarlosimulator.Game import *
+from montecarlosimulator import Die
+from montecarlosimulator import Game
+import numpy as np
+import pandas as pd
 import unittest
 
-class TestDie(unittest.TestCase):
+class TestGame(unittest.TestCase):
     '''
     Tests the methods of a Game object
 

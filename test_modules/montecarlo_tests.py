@@ -4,7 +4,9 @@ TestGame, which tests the methods of a Game object; and
 TestAnalyzer, which tests the methods of an Analyzer object
 '''
 
-from montecarlosimulator.Die import *
+from montecarlosimulator import Die
+import numpy as np
+import pandas as pd
 import unittest
 
 class TestDie(unittest.TestCase):
@@ -173,13 +175,9 @@ class TestDie(unittest.TestCase):
         expected_data_frame_of_faces_and_weights = pd.DataFrame({'face': array_of_faces, 'weight': array_of_weights})
         self.assertTrue(shown_data_frame_of_faces_and_weights.equals(expected_data_frame_of_faces_and_weights))
 
-if __name__ == "__main__":
-    verbose = 2
-    unittest.main(verbosity = verbose)
+from montecarlosimulator import Game
 
-from montecarlosimulator.Game import *
-
-class TestDie(unittest.TestCase):
+class TestGame(unittest.TestCase):
     '''
     Tests the methods of a Game object
 
@@ -325,13 +323,9 @@ class TestDie(unittest.TestCase):
         self.assertTrue(shown_data_frame_of_rolls_and_dice.equals(shown_data_frame_of_rolls_and_dice))
         Die._roll_is_being_tested = False
 
-if __name__ == "__main__":
-    verbose = 2
-    unittest.main(verbosity = verbose)
+from montecarlosimulator import Analyzer
 
-from montecarlosimulator.Analyzer import *
-
-class TestDie(unittest.TestCase):
+class TestAnalyzer(unittest.TestCase):
     '''
     Tests the methods of an Analyzer object
 

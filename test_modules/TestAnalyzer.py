@@ -2,12 +2,14 @@
 Module for class TestAnalyzer, which tests the methods of an Analyzer object
 '''
 
-from montecarlosimulator.Die import *
-from montecarlosimulator.Game import *
-from montecarlosimulator.Analyzer import *
+from montecarlosimulator import Die
+from montecarlosimulator import Game
+from montecarlosimulator import Analyzer
+import numpy as np
+import pandas as pd
 import unittest
 
-class TestDie(unittest.TestCase):
+class TestAnalyzer(unittest.TestCase):
     '''
     Tests the methods of an Analyzer object
 
